@@ -18,10 +18,14 @@ package main
 
 import (
 	"github.com/rikatz/kpng-ipvs-backend/pkg/ipvs"
+	"k8s.io/klog"
 	"sigs.k8s.io/kpng/pkg/client"
 )
 
 func main() {
-	ipvs.PreRun()
+	err := ipvs.PreRun()
+	if err != nil {
+		klog.Fatalf("Error starting kpng ipvs: %s", err)
+	}
 	client.RunCh(ipvs.Callback, ipvs.BindFlags)
 }

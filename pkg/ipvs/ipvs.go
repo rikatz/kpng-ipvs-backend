@@ -22,18 +22,6 @@ func Callback(ch <-chan *client.ServiceEndpoints) {
 	var ipvsCfg strings.Builder
 	var err error
 
-	// TODO: Verify if the pointer is nil
-	ipvsCmd := exec.Cmd{
-		Path: *IPVSAdmPath,
-	}
-
-	// TODO: This is not removing old services, no idea why :/
-	ipvsCmd.Args = []string{"--clear"}
-	err = ipvsCmd.Run()
-	if err != nil {
-		panic(err)
-	}
-
 	for serviceEndpoints := range ch {
 
 		svc := serviceEndpoints.Service
@@ -58,13 +46,25 @@ func Callback(ch <-chan *client.ServiceEndpoints) {
 		}
 	}
 	fmt.Printf("%s", ipvsCfg.String())
-	ipvsCmd.Stdin = strings.NewReader(ipvsCfg.String())
-	ipvsCmd.Args = []string{"--restore"}
 
 	if OnlyOutput != nil && !*OnlyOutput {
-		err = ipvsCmd.Run()
+		fmt.Println("Running clear")
+		ipvsClear := exec.Command(*IPVSAdmPath, "--clear")
+
+		err = ipvsClear.Run()
 		if err != nil {
-			klog.Errorf("failed to execute ipvsadm-restore command")
+			fmt.Println("Error")
+			klog.Errorf("failed to clear ipvs table: %s", err)
+		}
+
+		fmt.Println("Running restore")
+		ipvsRestore := exec.Command(*IPVSAdmPath, "--restore")
+		ipvsRestore.Stdin = strings.NewReader(ipvsCfg.String())
+
+		err = ipvsRestore.Run()
+		if err != nil {
+			fmt.Println("Error")
+			klog.Errorf("failed to execute ipvsadm restore: %s", err)
 		}
 	}
 	ipvsCfg.Reset()

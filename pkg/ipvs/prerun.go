@@ -16,9 +16,6 @@ limitations under the License.
 
 package ipvs
 
-func PreRun() {
-	// check nil flags
-	// checkIPVSAdm Version / Executable
-	// check if SCTP is supported (ipvsadm version)
-	// checkIPVSModules()
+func PreRun() error {
+	return nil
 }
