@@ -16,6 +16,38 @@ limitations under the License.
 
 package ipvs
 
+import (
+	"fmt"
+
+	"github.com/vishvananda/netlink"
+)
+
 func PreRun() error {
+	err := NewDummyInterface("kube-ipvs0")
+	if err != nil {
+		return err
+	}
 	return nil
+}
+
+func NewDummyInterface(dummyInterface string) error {
+	// TODO: Turn configurable
+	_, err := netlink.LinkByName(dummyInterface)
+	if err != nil {
+		_, ok := err.(netlink.LinkNotFoundError)
+		if !ok {
+			return fmt.Errorf("unable to get dummy interface: %s", err)
+		}
+		dummy := &netlink.Dummy{
+			LinkAttrs: netlink.LinkAttrs{Name: dummyInterface},
+		}
+		err = netlink.LinkAdd(dummy)
+		if err != nil {
+			return fmt.Errorf("unable to add dummy interface: %s", err)
+		}
+		return nil
+	}
+
+	return nil
+
 }

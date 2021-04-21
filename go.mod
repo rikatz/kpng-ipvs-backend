@@ -4,7 +4,8 @@ go 1.16
 
 require (
 	github.com/spf13/pflag v1.0.5
+	github.com/vishvananda/netlink v1.1.0
+	golang.org/x/sys v0.0.0-20210403161142-5e06dd20ab57
 	k8s.io/klog v1.0.0
-	k8s.io/klog/v2 v2.8.0 // indirect
 	sigs.k8s.io/kpng v0.0.0-20210409182147-b3de40c81fcf
 )
