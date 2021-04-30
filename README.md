@@ -22,3 +22,11 @@ ipvs --nodeport-address 192.168.0.150
 You need to have ipvsadm installed in the machine that will run kpng.
 SCTP support only works on ipvsadm v1.30 or later
 
+## Building the binary
+
+Just use `make build`
+
+## Building the container image
+
+Just use `make image`
+

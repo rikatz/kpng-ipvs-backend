@@ -668,8 +668,8 @@ k8s.io/utils v0.0.0-20210305010621-2afb4311ab10/go.mod h1:jPW/WVKK9YHAvNhRxK0md/
 rsc.io/binaryregexp v0.2.0/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
 rsc.io/quote/v3 v3.1.0/go.mod h1:yEA65RcK8LyAZtP9Kv3t0HmxON59tX3rD+tICJqUlj0=
 rsc.io/sampler v1.3.0/go.mod h1:T1hPZKmBbMNahiBKFy5HrXp6adAjACjK9JXDnKaTXpA=
-sigs.k8s.io/kpng v0.0.0-20210409182147-b3de40c81fcf h1:XROuov7riLuN/928oWPe5OSgkPvSythphUCQNPBL23M=
-sigs.k8s.io/kpng v0.0.0-20210409182147-b3de40c81fcf/go.mod h1:nYBI8Lj6c6YKeBBpMKU/0HHhmVUeTlia/lELsOeJto0=
+sigs.k8s.io/kpng v0.0.0-20210429192104-9e108085ba67 h1:jjW0L49qYf1LcmAeRZ5h7IatnmioUm6sdk2shiECti4=
+sigs.k8s.io/kpng v0.0.0-20210429192104-9e108085ba67/go.mod h1:nYBI8Lj6c6YKeBBpMKU/0HHhmVUeTlia/lELsOeJto0=
 sigs.k8s.io/structured-merge-diff/v4 v4.0.2/go.mod h1:bJZC9H9iH24zzfZ/41RGcq60oK1F7G282QMXDPYydCw=
 sigs.k8s.io/structured-merge-diff/v4 v4.1.1/go.mod h1:bJZC9H9iH24zzfZ/41RGcq60oK1F7G282QMXDPYydCw=
 sigs.k8s.io/yaml v1.1.0/go.mod h1:UJmg0vDUVViEyp3mgSv9WPwZCDxu4rQW1olrI1uml+o=

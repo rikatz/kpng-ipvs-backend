@@ -7,5 +7,5 @@ require (
 	github.com/vishvananda/netlink v1.1.0
 	golang.org/x/sys v0.0.0-20210403161142-5e06dd20ab57
 	k8s.io/klog v1.0.0
-	sigs.k8s.io/kpng v0.0.0-20210409182147-b3de40c81fcf
+	sigs.k8s.io/kpng v0.0.0-20210429192104-9e108085ba67
 )
