@@ -1,1 +1,70 @@
-# This is going to have the yaml :D
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  generation: 1
+  labels:
+    k8s-app: kpng-backend-ipvs
+  name: kpng-backend-ipvs
+  namespace: kube-system
+  resourceVersion: "474"
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: kpng-backend-ipvs
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        k8s-app: kpng-backend-ipvs
+    spec:
+      containers:
+      - command:
+        - /kpng-backend-ipvs
+        - --target=kpng-server.kube-system:12345
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        image: rpkatz/kpng-ipvs-backend:v0.1
+        imagePullPolicy: IfNotPresent
+        name: kube-proxy
+        resources: {}
+        securityContext:
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /run/xtables.lock
+          name: xtables-lock
+        - mountPath: /lib/modules
+          name: lib-modules
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      nodeSelector:
+        kubernetes.io/os: linux
+      priorityClassName: system-node-critical
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - operator: Exists
+      volumes:
+      - hostPath:
+          path: /run/xtables.lock
+          type: FileOrCreate
+        name: xtables-lock
+      - hostPath:
+          path: /lib/modules
+          type: ""
+        name: lib-modules
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
